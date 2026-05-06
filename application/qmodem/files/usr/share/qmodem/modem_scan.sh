@@ -336,6 +336,7 @@ match_config()
     [[ "$name" = *"nl678"* ]] && name="nl678"
 
     [[ "$name" = *"em120k"* ]] && name="em120k"
+    [[ "$name" = *"em120r"* ]] && name="em120r-gl"
 
     #FM350-GL-00 5G Module
     [[ "$name" = *"fm350-gl"* ]] && name="fm350-gl"
