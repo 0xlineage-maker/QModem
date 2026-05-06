@@ -2215,7 +2215,7 @@ static int qmi_wwan_bind(struct usbnet *dev, struct usb_interface *intf)
 			int qmap_version = (dev->driver_info->data>>8)&0xFF;
 			int qmap_size = (dev->driver_info->data)&0xFF;
 			int idProduct = le16_to_cpu(dev->udev->descriptor.idProduct);
-			int lte_a = (idProduct == 0x0306 || idProduct == 0x030B || idProduct == 0x0512 || idProduct == 0x0620 ||
+			int lte_a = (idProduct == 0x0306 || idProduct == 0x030B || idProduct == 0x0512 || idProduct == 0x0600 || idProduct == 0x0620 ||
 							idProduct == 0x0800 || idProduct == 0x0801 || idProduct == 0x0122 || idProduct == 0x0316);
 
 			if (qmap_size > 4096 || dev->udev->speed >= USB_SPEED_SUPER) { //if meet this requirements, must be LTE-A or 5G
@@ -2549,7 +2549,8 @@ static const struct usb_device_id products[] = {
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0512, 4, mdm9x40) },  /* Quectel EG12/EP12/EM12/EG16/EG18 */
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0296, 4, mdm9x07) },  /* Quectel BG96 */
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0435, 4, mdm9x07) },  /* Quectel AG35 */
-	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0620, 4, mdm9x40) },  /* Quectel EG20 */
+	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0600, 2, mdm9x40) },  /* Quectel EM120R-GL */
+	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0620, 4, mdm9x40) },  /* Quectel EG20/EM120R-GL */
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0316, 3, mdm9x40) },  /* Quectel RG255 */
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0800, 4, sdx55) },  /* Quectel RG500 */
 	{ QMI_FIXED_RAWIP_INTF(0x2C7C, 0x0801, 4, sdx55) },  /* Quectel RG520 */
