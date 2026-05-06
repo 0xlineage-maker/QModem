@@ -165,7 +165,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        build_arch: ['arm64_ipk',"arm64_apk","x64_apk","x64_ipk","mmips_ipk","mmips_apk" ]
+        build_arch: ['arm64_ipk',"arm64_apk","aarch64_generic_ipk","aarch64_generic_apk","arm_cortex-a7_neon-vfpv4_ipk","arm_cortex-a7_neon-vfpv4_apk","x64_apk","x64_ipk","mmips_ipk","mmips_apk" ]
     runs-on: ubuntu-latest
     steps:
       - name: Install packages
