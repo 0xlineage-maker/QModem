@@ -380,7 +380,8 @@ match_config()
 get_model_name_by_id()
 {
     local id=$1
-    local name=$(echo $modem_support | jq -r '.modem_support."'$slot_type'" | to_entries[] | select(.value.id=="'$id'") | .key')
+    local name=$(echo "$modem_support" | jq -r --arg slot_type "$slot_type" --arg id "$id" '.modem_support[$slot_type] | to_entries[] | select((.value.id? == $id) or ((.value.ids? // []) | index($id))) | .key' | head -n1)
+    [ -z "$name" ] && return
     modem_config=$(echo $modem_support | jq '.modem_support."'$slot_type'"."'$name'"')
     [ "$modem_config" == "null"  ] && return
     [ -z "$modem_config"  ] && return
@@ -464,8 +465,16 @@ add()
     done
     if [ -z "$modem_name" ];then
         m_debug "modem $modem_name not found, try to get modem model by id"
-        product_id=$(cat $modem_path/idProduct)
-        vendor_id=$(cat $modem_path/idVendor)
+        case $slot_type in
+            "pcie")
+                product_id=$(cat $modem_path/device | sed 's/^0x//')
+                vendor_id=$(cat $modem_path/vendor | sed 's/^0x//')
+                ;;
+            *)
+                product_id=$(cat $modem_path/idProduct)
+                vendor_id=$(cat $modem_path/idVendor)
+                ;;
+        esac
         id="$vendor_id:$product_id"
         get_model_name_by_id $id
     fi
